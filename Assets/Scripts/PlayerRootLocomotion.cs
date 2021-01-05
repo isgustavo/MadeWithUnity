@@ -67,14 +67,14 @@ public class PlayerRootLocomotion : MonoBehaviour
         cameraRight.y = 0f;
 
         Vector3 inputDirection = cameraForward * input.y + cameraRight * input.x; 
-        if (CheckPosition(transform.position, inputDirection))
-        {
-            SetAnimatorMovement(input.x, input.y);
-        }
-        else
-        {
-            SetAnimatorMovement();
-        }
+        // if (CheckPosition(transform.position, inputDirection))
+        // {
+             SetAnimatorMovement(input.x, input.y);
+        // }
+        // else
+        // {
+        //     SetAnimatorMovement();
+        // }
     }
 
     void SetAnimatorMovement(float horizontalValue = 0f, float verticalValue = 0f)
