@@ -12,11 +12,11 @@ public class PlayerFootIK : MonoBehaviour
 
     Vector3 rightFootPosition;
     Vector3 rightFootIKPosition;
-    Quaternion rightFootIKRotation;
+    //Quaternion rightFootIKRotation;
 
     Vector3 leftFootPosition;
     Vector3 leftFootIKPosition;
-    Quaternion leftFootIKRotation;
+    //Quaternion leftFootIKRotation;
 
     float lastPelvisPositionY;
     float lastRightFootPositionY;
@@ -93,6 +93,7 @@ public class PlayerFootIK : MonoBehaviour
         }
 
         animator.SetIKPosition(foot, targetIKPosition);   
+        
     }
 
 

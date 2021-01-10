@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class InventoryItem
 {
     public int itemID;
+    public int handIndex;
     public int count;
     public GameObject ItemPrefab;
 }

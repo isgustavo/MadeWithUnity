@@ -10,7 +10,7 @@ public class PlayerRootLocomotion : MonoBehaviour
     static readonly int CROUCH_PARAMETER_HASH = Animator.StringToHash("Crouch");
     static readonly float TURN_SPEED = 5f;
     static readonly float ZOOM_TURN_SPEED = 25f;
-    static readonly float FORWARD_OFFSET = .5f;
+    static readonly float FORWARD_OFFSET = .55f;
 
     Camera camera;
     Animator animator;
@@ -19,6 +19,8 @@ public class PlayerRootLocomotion : MonoBehaviour
     bool isHoldLeftTrigger;
     
     float CurrentTurnSpeed => isHoldLeftTrigger ? ZOOM_TURN_SPEED : TURN_SPEED;
+
+    public event Action<bool> OnCanWalkChanged;
 
     void Start()
     {
@@ -67,14 +69,14 @@ public class PlayerRootLocomotion : MonoBehaviour
         cameraRight.y = 0f;
 
         Vector3 inputDirection = cameraForward * input.y + cameraRight * input.x; 
-        // if (CheckPosition(transform.position, inputDirection))
-        // {
+        if (CanWalkToDirection(transform.position, inputDirection))
+        {
              SetAnimatorMovement(input.x, input.y);
-        // }
-        // else
-        // {
-        //     SetAnimatorMovement();
-        // }
+        }
+        else
+        {
+            SetAnimatorMovement();
+        }
     }
 
     void SetAnimatorMovement(float horizontalValue = 0f, float verticalValue = 0f)
@@ -83,7 +85,20 @@ public class PlayerRootLocomotion : MonoBehaviour
         animator.SetFloat(VERTICAL_PARAMETER_HASH, verticalValue, .25f, Time.deltaTime);
     }
 
-    protected bool CheckPosition (Vector3 position, Vector3 direction) => NavMesh.SamplePosition(position + direction * FORWARD_OFFSET, out _, .25f, NavMesh.AllAreas);
+    protected bool CanWalkToDirection (Vector3 position, Vector3 direction) 
+    {
+        if(Physics.Raycast(position + Vector3.up * .5f, direction, FORWARD_OFFSET))
+        {
+            //Debug.DrawRay(position + Vector3.up * .5f, direction, Color.red, FORWARD_OFFSET);
+            OnCanWalkChanged?.Invoke(false);
+            return false;
+        } else 
+        {
+            //Debug.DrawRay(position + Vector3.up * .5f, direction, Color.green, FORWARD_OFFSET);
+            OnCanWalkChanged?.Invoke(true);
+            return true;
+        }
+    }
 
     public void OnLeftStick (InputValue value)
     {

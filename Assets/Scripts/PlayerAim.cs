@@ -52,7 +52,8 @@ public class PlayerAim : MonoBehaviour
 
     private void OnDestroy() 
     {
-        playerInventory.OnCurrentItemChanged -= OnCurrentItemChanged;
+        if(playerInventory != null)
+            playerInventory.OnCurrentItemChanged -= OnCurrentItemChanged;
     }
 
     void TryGetComponents()
