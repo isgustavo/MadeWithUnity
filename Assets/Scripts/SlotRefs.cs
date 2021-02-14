@@ -21,6 +21,7 @@ public class SlotRefs : MonoBehaviour
         {
             return slotsDictionary[name];
         }
+        
         return null;    
     }
 }

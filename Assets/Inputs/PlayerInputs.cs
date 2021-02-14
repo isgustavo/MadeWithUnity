@@ -64,7 +64,15 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""id"": ""7d62326e-b4a9-413a-9365-a321d03691a2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""EastButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""95b066ed-9b17-454a-a38c-6326e20c50b6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)""
                 }
             ],
             ""bindings"": [
@@ -133,6 +141,17 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                     ""action"": ""WestButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa9fd8ce-942d-4a8a-ac32-e8dbc51ef3da"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EastButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -147,6 +166,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         m_GameplayMap_LeftTrigger = m_GameplayMap.FindAction("LeftTrigger", throwIfNotFound: true);
         m_GameplayMap_SouthButton = m_GameplayMap.FindAction("SouthButton", throwIfNotFound: true);
         m_GameplayMap_WestButton = m_GameplayMap.FindAction("WestButton", throwIfNotFound: true);
+        m_GameplayMap_EastButton = m_GameplayMap.FindAction("EastButton", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -202,6 +222,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
     private readonly InputAction m_GameplayMap_LeftTrigger;
     private readonly InputAction m_GameplayMap_SouthButton;
     private readonly InputAction m_GameplayMap_WestButton;
+    private readonly InputAction m_GameplayMap_EastButton;
     public struct GameplayMapActions
     {
         private @PlayerInputs m_Wrapper;
@@ -212,6 +233,7 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         public InputAction @LeftTrigger => m_Wrapper.m_GameplayMap_LeftTrigger;
         public InputAction @SouthButton => m_Wrapper.m_GameplayMap_SouthButton;
         public InputAction @WestButton => m_Wrapper.m_GameplayMap_WestButton;
+        public InputAction @EastButton => m_Wrapper.m_GameplayMap_EastButton;
         public InputActionMap Get() { return m_Wrapper.m_GameplayMap; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -239,6 +261,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @WestButton.started -= m_Wrapper.m_GameplayMapActionsCallbackInterface.OnWestButton;
                 @WestButton.performed -= m_Wrapper.m_GameplayMapActionsCallbackInterface.OnWestButton;
                 @WestButton.canceled -= m_Wrapper.m_GameplayMapActionsCallbackInterface.OnWestButton;
+                @EastButton.started -= m_Wrapper.m_GameplayMapActionsCallbackInterface.OnEastButton;
+                @EastButton.performed -= m_Wrapper.m_GameplayMapActionsCallbackInterface.OnEastButton;
+                @EastButton.canceled -= m_Wrapper.m_GameplayMapActionsCallbackInterface.OnEastButton;
             }
             m_Wrapper.m_GameplayMapActionsCallbackInterface = instance;
             if (instance != null)
@@ -261,6 +286,9 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
                 @WestButton.started += instance.OnWestButton;
                 @WestButton.performed += instance.OnWestButton;
                 @WestButton.canceled += instance.OnWestButton;
+                @EastButton.started += instance.OnEastButton;
+                @EastButton.performed += instance.OnEastButton;
+                @EastButton.canceled += instance.OnEastButton;
             }
         }
     }
@@ -273,5 +301,6 @@ public class @PlayerInputs : IInputActionCollection, IDisposable
         void OnLeftTrigger(InputAction.CallbackContext context);
         void OnSouthButton(InputAction.CallbackContext context);
         void OnWestButton(InputAction.CallbackContext context);
+        void OnEastButton(InputAction.CallbackContext context);
     }
 }

@@ -51,7 +51,15 @@
                     "id": "7d62326e-b4a9-413a-9365-a321d03691a2",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "EastButton",
+                    "type": "Button",
+                    "id": "95b066ed-9b17-454a-a38c-6326e20c50b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=2)"
                 }
             ],
             "bindings": [
@@ -118,6 +126,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "WestButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa9fd8ce-942d-4a8a-ac32-e8dbc51ef3da",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EastButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
